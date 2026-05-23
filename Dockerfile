@@ -26,11 +26,13 @@ FROM oven/bun:1-slim AS runner
 
 WORKDIR /app
 
+# Install curl for Coolify healthcheck
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+
 ENV NODE_ENV=production
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
 
-# Copy only necessary files
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/bun.lockb* ./
 COPY --from=builder /app/bun.lock* ./
