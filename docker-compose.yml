@@ -1,0 +1,22 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: docker-local/Dockerfile
+
+    container_name: bns
+
+    ports:
+      - "3000:3000"
+
+    volumes:
+      - .:/app
+
+    environment:
+      - NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
+      - HOSTNAME=0.0.0.0
+      - PORT=3000
+      - CHOKIDAR_USEPOLLING=true
+
+    command: sh -c "bun install && bun dev"
+
