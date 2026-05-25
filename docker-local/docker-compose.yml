@@ -4,17 +4,12 @@ services:
       context: ..
       dockerfile: docker-local/Dockerfile
 
-    container_name: bns
+    container_name: next-app
 
     ports:
       - "3000:3000"
 
     volumes:
       - ..:/app
-
-    environment:
-      - HOSTNAME=0.0.0.0
-      - PORT=3000
-      - CHOKIDAR_USEPOLLING=true
 
     command: sh -c "bun install && bun dev"

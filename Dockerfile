@@ -18,7 +18,6 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Build Next.js app
 RUN bun run build
 
 # ---- Runner ----
@@ -26,12 +25,7 @@ FROM oven/bun:1-slim AS runner
 
 WORKDIR /app
 
-# Install curl for Coolify healthcheck
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
-
-ENV NODE_ENV=production
-ENV PORT=3000
-ENV HOSTNAME=0.0.0.0
 
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/bun.lockb* ./
